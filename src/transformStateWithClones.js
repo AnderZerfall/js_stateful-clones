@@ -8,7 +8,7 @@
  */
 function transformStateWithClones(state, actions) {
   const stateHistory = [];
-  let currentState = {};
+  const currentState = {};
 
   Object.assign(currentState, state);
 
