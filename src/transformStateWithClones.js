@@ -26,7 +26,7 @@ function transformStateWithClones(state, actions) {
     }
 
     stateHistory.push(updatedState);
-    currentState = updatedState;
+    Object.assign(currentState, updatedState);
   }
 
   return stateHistory;
