@@ -8,12 +8,12 @@
  */
 function transformStateWithClones(state, actions) {
   const stateHistory = [];
-  const currentState = {};
+  let currentState = {};
 
   Object.assign(currentState, state);
 
   for (let i = 0; i < actions.length; i++) {
-    let updatedState = {};
+    const updatedState = {};
 
     Object.assign(updatedState, currentState);
 
@@ -22,11 +22,13 @@ function transformStateWithClones(state, actions) {
     } else if (actions[i].type === 'removeProperties') {
       actions[i].keysToRemove.forEach((key) => delete updatedState[key]);
     } else if (actions[i].type === 'clear') {
-      updatedState = {};
+      for (const key in updatedState) {
+        delete updatedState[key];
+      }
     }
 
     stateHistory.push(updatedState);
-    Object.assign(currentState, updatedState);
+    currentState = updatedState;
   }
 
   return stateHistory;
